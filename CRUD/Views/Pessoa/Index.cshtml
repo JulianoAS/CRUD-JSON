@@ -1,0 +1,79 @@
+﻿
+@model IEnumerable<Exemplos.Models.PessoaModel>
+
+@section scripts{
+    <script>
+        var urlDeletar = '@Url.Action("Deletar", "Pessoa", new { area = "" })';
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+    </script>
+}
+@Scripts.Render("~/bundles/pessoas-deletar")
+
+@{
+    var grid = new WebGrid(Model);
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                Clientes
+                <ul class="nav nav-pills card-header-pills pull-right">                    
+                      <li class="nav-item">                                
+                          <a class="nav-link" rel="tooltip" href="@Url.Action("Incluir", "Pessoa")">
+                                <i class="fa fa-user-plus"></i>                              
+                          </a>
+                      </li>
+                 </ul>                    
+                </div>
+            
+            <div class="card-body">                
+                <div class="table-responsive">
+                    @grid.GetHtml(
+                         tableStyle: "table",
+                         fillEmptyRows: false,
+                         headerStyle: "text-primary",
+                         alternatingRowStyle: "gvAlternateRow",
+                         rowStyle: "gvRow",
+                         footerStyle: "gvFooter",
+                         mode: WebGridPagerModes.All,
+                         firstText: "<< Primeiro",
+                         previousText: "< Anterior",
+                         nextText: "Próximo >",
+                         lastText: "Último >>",
+                         columns: new[] {
+                             grid.Column("Nome", "Nome"),
+                             grid.Column("Sobrenome", "Sobrenome"),
+                             grid.Column("CPF", "CPF"),
+                             grid.Column("RG", "RG"),
+                             grid.Column("Logradouro", "Logradouro"),
+                             grid.Column("Cidade", "Cidade"),
+                             grid.Column("Estado", "Estado"),
+                             grid.Column("CEP", "CEP"),
+                             grid.Column("Email", "Email"),
+                             grid.Column("Telefone", "Telefone"),
+                             grid.Column("Celular", "Celular"),
+                             grid.Column("Action",
+                             format: @<text>
+                    <ul class="nav nav-pills pull-right">
+                        <a class="nav-link" onclick="location.href='@Url.Action("Alterar", "Pessoa", new {id = item.id })'">
+                            <i class="fa fa-pencil-square-o"></i>
+                        </a>
+                        <a class="nav-link" onclick="deletar(@item.Id)">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+                     </ul>                      
+                       </text>, style: "td-actions text-right" , canSort: false)
+
+})
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

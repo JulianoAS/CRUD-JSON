@@ -1,0 +1,14 @@
+﻿
+@section scripts{
+    <script>
+        var urlPost = '@Url.Action("Incluir", "Pessoa", new { area = "" })';
+    </script>
+    @Scripts.Render("~/bundles/pessoas");
+}
+
+@Html.Partial("Forms")
+
+
+
+
+

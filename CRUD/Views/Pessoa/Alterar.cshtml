@@ -1,0 +1,13 @@
+﻿@model Exemplos.Models.PessoaModel
+
+@section scripts{
+    <script>
+        var urlPost = '@Url.Action("Alterar", "Pessoa", new { area = "" })';
+        var obj = @Html.Raw(Json.Encode(Model));
+        var urlRetorno = '@Url.Action("Index", "Pessoa", new { area = "" })';
+    </script>
+    @Scripts.Render("~/bundles/pessoas-atualizar")
+}
+
+@Html.Partial("Forms")
+
